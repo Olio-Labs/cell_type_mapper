@@ -6,8 +6,7 @@ circa June 30 2023.
 It takes an hour or two to run.
 """
 
-from cell_type_mapper.cli.precompute_stats import (
-    PrecomputationRunner)
+from cell_type_mapper.cli.precompute_stats_abc import PrecomputationABCRunner
 
 from cell_type_mapper.utils.utils import get_timestamp
 
@@ -24,11 +23,10 @@ def main():
         raise RuntimeError("Must specify --output_path")
 
     data_dir = pathlib.Path(
-        "/allen/programs/celltypes/workgroups/rnaseqanalysis/lydian/ABC_handoff/metadata")
+        "/home/david/data/sc-rna-seq/data_atlas/mus_musculus/allen-brain-cell-atlas/metadata")
     assert data_dir.is_dir()
 
     # Paths to CSV files encoding the cell types taxonomy
-
     cluster_annotation = data_dir / "WMB-taxonomy/20230630/cluster_annotation_term.csv"
     assert cluster_annotation.is_file()
 
@@ -52,14 +50,14 @@ def main():
     # assemble a list of all of the h5ad files containing all of the
     # raw counts cell by gene expression matrices for the data release
     h5ad_dir_1 = pathlib.Path(
-        "/allen/programs/celltypes/workgroups/rnaseqanalysis/lydian/ABC_handoff/expression_matrices/WMB-10Xv2/20230630")
+        "/home/david/data/sc-rna-seq/data_atlas/mus_musculus/allen-brain-cell-atlas/expression_matrices/WMB-10Xv2/20230630")
     h5ad_list_1 = [
         str(n.resolve().absolute())
         for n in h5ad_dir_1.iterdir()
         if n.name.endswith('raw.h5ad')]
 
     h5ad_dir_2 = pathlib.Path(
-        "/allen/programs/celltypes/workgroups/rnaseqanalysis/lydian/ABC_handoff/expression_matrices/WMB-10Xv3/20230630")
+        "/home/david/data/sc-rna-seq/data_atlas/mus_musculus/allen-brain-cell-atlas/expression_matrices/WMB-10Xv3/20230630")
     h5ad_list_2 = [
         str(n.resolve().absolute())
         for n in h5ad_dir_2.iterdir()
@@ -79,7 +77,7 @@ def main():
         'output_path': args.output_path}
 
     t0 = time.time()
-    runner = PrecomputationRunner(args=[], input_data=config)
+    runner = PrecomputationABCRunner(args=[], input_data=config)
     runner.run()
     dur = time.time()-t0
     print(f"wrote {args.output_path}")

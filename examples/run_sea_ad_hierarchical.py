@@ -2,7 +2,7 @@ from cell_type_mapper.cli.map_to_on_the_fly_markers import (
     OnTheFlyMapper)
 
 def main():
-    sea_ad_dir='/allen/aibs/technology/danielsf/sea_ad'
+    sea_ad_dir='/home/david/data/sc-rna-seq/data_atlas/mus_musculus/allen-brain-cell-atlas/sea_ad'
     mapping_dir=sea_ad_dir+'/mapper'
 
     # these need to be re-directed to point to somewhere
@@ -14,9 +14,10 @@ def main():
     #precompute_path=mapping_dir+'/precomputed_stats.sea_ad.h5'
     #query_path=sea_ad_dir+'/test_data/sea_ad_eg_10k_cells.h5ad'
 
-    query_path = # path to s3://sea-ad-hierarchical-prototype/sea_ad_eg_10k_cells.h5ad
+    query_path = '/home/david/data/sc-rna-seq/data_atlas/mus_musculus/Kozareva_vta/Kozareva_vta.h5ad'
+    # path to s3://sea-ad-hierarchical-prototype/sea_ad_eg_10k_cells.h5ad
 
-    precompute_path = # path to s3://sea-ad-hierarchical-prototype/precomputed_stats.sea_ad.h5
+    precompute_path = '/home/david/precompute_abc.h5' # path to s3://sea-ad-hierarchical-prototype/precomputed_stats.sea_ad.h5
 
     config = {
         'precomputed_stats': {'path': precompute_path},
